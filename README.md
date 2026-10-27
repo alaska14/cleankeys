@@ -2,10 +2,10 @@
   <img src="docs/assets/CleanKeys-Cover-Final.png" alt="CleanKeys Banner" width="800">
   <br><br>
   
-  [![Gumroad](https://img.shields.io/badge/Get_CleanKeys-Gumroad_%242.99+-102039?style=for-the-badge&logo=gumroad&logoColor=white)](https://modolabs.gumroad.com/l/fkwin)
+  [![Support on Gumroad](https://img.shields.io/badge/Support_on_Gumroad-%242.99+-102039?style=for-the-badge&logo=gumroad&logoColor=white)](https://modolabs.gumroad.com/l/fkwin)
+  [![Free Release](https://img.shields.io/badge/Download-Free_DMG-success?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alaska14/cleankeys/releases/latest)
   [![AlternativeTo](https://img.shields.io/badge/AlternativeTo-Listed-blue?style=for-the-badge)](https://alternativeto.net/software/cleankeys-by-modo-labs/)
-  [![macOS](https://img.shields.io/badge/macOS-Monterey_to_Sequoia-gray?style=for-the-badge&logo=apple&logoColor=white)](https://modolabs.gumroad.com/l/fkwin)
-  [![Arch](https://img.shields.io/badge/Architecture-Universal_Binary_(Apple_Silicon_+_Intel)-success?style=for-the-badge)](https://modolabs.gumroad.com/l/fkwin)
+  [![Homebrew](https://img.shields.io/badge/Homebrew-Available-orange?style=for-the-badge&logo=homebrew&logoColor=white)](#option-2-homebrew-free)
 </div>
 
 <br>
@@ -42,20 +42,19 @@ Here is our explicit privacy promise:
 
 ---
 
-## 📦 Download & Installation
+## 📦 Installation
 
-CleanKeys is distributed directly outside the Mac App Store as a signed Universal Binary:
+### Option 1: Homebrew (Free)
+```bash
+brew tap alaska14/tap
+brew install --cask cleankeys
+```
 
-1. **[Download CleanKeys on Gumroad ($2.99+)](https://modolabs.gumroad.com/l/fkwin)**
-2. Open the downloaded `CleanKeys-1.0.dmg`.
-3. Drag `CleanKeys.app` into your Applications folder.
-4. Launch CleanKeys and click **"Grant Permission"** to toggle Accessibility ON.
+### Option 2: Download Free DMG
+Download the signed DMG directly from **[GitHub Releases](https://github.com/alaska14/cleankeys/releases/latest)**.
 
----
-
-## 🛡️ 30-Day Money-Back Guarantee
-
-If CleanKeys does not perform flawlessly on your specific Mac hardware setup, simply send an email for an instant 100% refund, no questions asked.
+### Option 3: Support Development on Gumroad
+If you love CleanKeys and want to support indie Mac development, you can pay what you want on **[Gumroad (modolabs.gumroad.com/l/fkwin)](https://modolabs.gumroad.com/l/fkwin)**!
 
 ---
 
