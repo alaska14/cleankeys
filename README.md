@@ -42,19 +42,20 @@ Here is our explicit privacy promise:
 
 ---
 
-## 📦 Installation
+## 📦 Download & Installation
 
-### Option 1: Official Installer (Recommended)
-Download the signed DMG package from **[Gumroad (modolabs.gumroad.com/l/fkwin)](https://modolabs.gumroad.com/l/fkwin)**:
-1. Open `CleanKeys-1.0.dmg`.
-2. Drag `CleanKeys.app` into your Applications folder.
-3. Launch CleanKeys and click **"Grant Permission"** to toggle Accessibility ON.
+CleanKeys is distributed directly outside the Mac App Store as a signed Universal Binary:
 
-### Option 2: Homebrew
-```bash
-brew tap alaska14/tap
-brew install --cask cleankeys
-```
+1. **[Download CleanKeys on Gumroad ($2.99+)](https://modolabs.gumroad.com/l/fkwin)**
+2. Open the downloaded `CleanKeys-1.0.dmg`.
+3. Drag `CleanKeys.app` into your Applications folder.
+4. Launch CleanKeys and click **"Grant Permission"** to toggle Accessibility ON.
+
+---
+
+## 🛡️ 30-Day Money-Back Guarantee
+
+If CleanKeys does not perform flawlessly on your specific Mac hardware setup, simply send an email for an instant 100% refund, no questions asked.
 
 ---
 
