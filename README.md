@@ -2,7 +2,7 @@
   <img src="docs/assets/CleanKeys-Cover-Final.png" alt="CleanKeys Banner" width="800">
   <br><br>
   
-  [![Support on Gumroad](https://img.shields.io/badge/Support_on_Gumroad-%242.99+-102039?style=for-the-badge&logo=gumroad&logoColor=white)](https://monolab-apps.gumroad.com/l/fkwin)
+  [![Support on Gumroad](https://img.shields.io/badge/Support_on_Gumroad-%242.99+-102039?style=for-the-badge&logo=gumroad&logoColor=white)](https://modolabs.gumroad.com/l/cleankeys)
   [![Free Release](https://img.shields.io/badge/Download-Free_DMG-success?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alaska14/cleankeys/releases/latest)
   [![AlternativeTo](https://img.shields.io/badge/AlternativeTo-Listed-blue?style=for-the-badge)](https://alternativeto.net/software/cleankeys/)
   [![Homebrew](https://img.shields.io/badge/Homebrew-Available-orange?style=for-the-badge&logo=homebrew&logoColor=white)](#option-2-homebrew-free)
@@ -54,7 +54,7 @@ brew install --cask cleankeys
 Download the signed DMG directly from **[GitHub Releases](https://github.com/alaska14/cleankeys/releases/latest)**.
 
 ### Option 3: Support Development on Gumroad
-If you love CleanKeys and want to support indie Mac development, you can pay what you want on **[Gumroad (monolab-apps.gumroad.com/l/fkwin)](https://monolab-apps.gumroad.com/l/fkwin)**!
+If you love CleanKeys and want to support indie Mac development, you can pay what you want on **[Gumroad (modolabs.gumroad.com/l/cleankeys)](https://modolabs.gumroad.com/l/cleankeys)**!
 
 ---
 
