@@ -35,6 +35,43 @@ static BOOL setDeviceVolumeOnElement(AudioDeviceID deviceID, UInt32 element, flo
     return (AudioObjectSetPropertyData(deviceID, &volAddr, 0, NULL, sizeof(vol), &vol) == noErr);
 }
 
+// Like macOS: pressing a volume key while muted unmutes the output.
+static void unmuteDeviceIfNeeded(AudioDeviceID deviceID) {
+    UInt32 elements[] = { kAudioObjectPropertyElementMain, 1, 2 };
+    for (int i = 0; i < 3; i++) {
+        AudioObjectPropertyAddress muteAddr = { kAudioDevicePropertyMute, kAudioDevicePropertyScopeOutput, elements[i] };
+        if (!AudioObjectHasProperty(deviceID, &muteAddr)) continue;
+        UInt32 mute = 0;
+        UInt32 size = sizeof(mute);
+        if (AudioObjectGetPropertyData(deviceID, &muteAddr, 0, NULL, &size, &mute) == noErr && mute) {
+            Boolean settable = false;
+            if (AudioObjectIsPropertySettable(deviceID, &muteAddr, &settable) == noErr && settable) {
+                mute = 0;
+                AudioObjectSetPropertyData(deviceID, &muteAddr, 0, NULL, sizeof(mute), &mute);
+            }
+        }
+    }
+}
+
+// AppleScript fallback. Runs asynchronously on the main queue *after* the event-tap
+// callback has returned, so a slow AppleScript can never stall the tap (macOS disables
+// taps that take too long, which would drop key presses).
+static void adjustVolumeViaAppleScriptAsync(float delta) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAppleScript *asGet = [[NSAppleScript alloc] initWithSource:@"output volume of (get volume settings)"];
+        NSAppleEventDescriptor *res = [asGet executeAndReturnError:nil];
+        if (!res) return;
+        int currentVol = (int)[res int32Value];
+        int change = (int)roundf(delta * 100.0f);
+        if (change == 0) change = (delta > 0) ? 1 : -1;
+        int newVol = currentVol + change;
+        if (newVol < 0) newVol = 0;
+        if (newVol > 100) newVol = 100;
+        NSString *setSrc = [NSString stringWithFormat:@"set volume output volume %d without output muted", newVol];
+        [[[NSAppleScript alloc] initWithSource:setSrc] executeAndReturnError:nil];
+    });
+}
+
 BOOL adjustVolume(float delta) {
     // 1. Direct CoreAudio HAL control
     AudioObjectPropertyAddress addr = {
@@ -47,6 +84,7 @@ BOOL adjustVolume(float delta) {
     if (AudioObjectGetPropertyData(kAudioObjectSystemObject, &addr, 0, NULL, &size, &deviceID) == noErr && deviceID != kAudioObjectUnknown) {
         // Try master channel (0) first
         if (setDeviceVolumeOnElement(deviceID, kAudioObjectPropertyElementMain, delta)) {
+            unmuteDeviceIfNeeded(deviceID);
             return YES;
         }
 
@@ -55,27 +93,14 @@ BOOL adjustVolume(float delta) {
         BOOL ch1 = setDeviceVolumeOnElement(deviceID, 1, delta);
         BOOL ch2 = setDeviceVolumeOnElement(deviceID, 2, delta);
         if (ch1 || ch2) {
+            unmuteDeviceIfNeeded(deviceID);
             return YES;
         }
     }
 
     // 2. High-level AppleScript fallback (bypasses HUD and talks directly to macOS sound server)
-    NSAppleScript *asGet = [[NSAppleScript alloc] initWithSource:@"output volume of (get volume settings)"];
-    NSAppleEventDescriptor *res = [asGet executeAndReturnError:nil];
-    if (res) {
-        int currentVol = (int)[res int32Value];
-        int change = (int)roundf(delta * 100.0f);
-        if (change == 0) change = (delta > 0) ? 1 : -1;
-        int newVol = currentVol + change;
-        if (newVol < 0) newVol = 0;
-        if (newVol > 100) newVol = 100;
-
-        NSString *setSrc = [NSString stringWithFormat:@"set volume output volume %d", newVol];
-        NSAppleScript *asSet = [[NSAppleScript alloc] initWithSource:setSrc];
-        return ([asSet executeAndReturnError:nil] != nil);
-    }
-
-    return NO;
+    adjustVolumeViaAppleScriptAsync(delta);
+    return YES;
 }
 
 static BOOL setDeviceMuteOnElement(AudioDeviceID deviceID, UInt32 element) {
@@ -118,16 +143,16 @@ BOOL toggleMute(void) {
         if (ch1 || ch2) return YES;
     }
 
-    // High-level AppleScript fallback
-    NSAppleScript *asGet = [[NSAppleScript alloc] initWithSource:@"output muted of (get volume settings)"];
-    NSAppleEventDescriptor *res = [asGet executeAndReturnError:nil];
-    if (res) {
+    // High-level AppleScript fallback (async, so the event tap is never stalled)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAppleScript *asGet = [[NSAppleScript alloc] initWithSource:@"output muted of (get volume settings)"];
+        NSAppleEventDescriptor *res = [asGet executeAndReturnError:nil];
+        if (!res) return;
         BOOL isMuted = (BOOL)[res booleanValue];
         NSString *setSrc = [NSString stringWithFormat:@"set volume output muted %s", isMuted ? "false" : "true"];
-        NSAppleScript *asSet = [[NSAppleScript alloc] initWithSource:setSrc];
-        return ([asSet executeAndReturnError:nil] != nil);
-    }
-    return NO;
+        [[[NSAppleScript alloc] initWithSource:setSrc] executeAndReturnError:nil];
+    });
+    return YES;
 }
 
 BOOL adjustDisplayBrightness(float delta) {
@@ -243,7 +268,7 @@ CGEventRef cleanKeysEventCallback(CGEventTapProxy proxy, CGEventType type, CGEve
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // 1. Single Instance Check: If already running, offer a frictionless Quit dialog
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
-    if (!bundleId) bundleId = @"com.amarinspire.cleankeys";
+    if (!bundleId) bundleId = @"com.monolab.cleankeys";
 
     NSArray<NSRunningApplication *> *instances = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleId];
     pid_t myPid = [[NSProcessInfo processInfo] processIdentifier];

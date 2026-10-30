@@ -26,7 +26,7 @@ Ever been immersed in a movie, video edit, live stream, or fullscreen game, only
 - 🍃 **Fully Headless & Menu-Bar-Free:** Most utilities clutter your top menu bar with yet another icon. CleanKeys is completely headless—zero menu bar items, zero Dock icon. It simply works silently in the background.
 - 🔇 **Silences All Intrusive Popups:** Suppresses on-screen volume, mute, display brightness, and keyboard illumination HUD banners.
 - 🎮 **Pro Workflow & Gaming:** Ideal for full-screen games, video editing (Final Cut Pro, Premiere, DaVinci Resolve), and keynote presentations where popups ruin the visual.
-- ⚡ **Zero Battery Drain (0.0% CPU):** Written in lightweight native AppKit with zero dependencies, frameworks, or Electron bloat.
+- ⚡ **Near-Zero Battery Impact:** Lightweight native AppKit, no dependencies or Electron. Idles at ~0% CPU and only wakes when you press a media key.
 - 🛑 **Frictionless Control:** Wondering how to quit or pause without a menu bar icon? Simply open CleanKeys from Applications or Spotlight anytime—it will gracefully detect it is already running and pop up a clean 1-click dialog: *Keep Running* or *Quit CleanKeys*.
 
 ---
@@ -47,11 +47,16 @@ Here is our explicit privacy promise:
 ### Option 1: Homebrew (Free)
 ```bash
 brew tap alaska14/tap
+brew trust alaska14/tap   # Homebrew 7+ requires trusting third-party taps
 brew install --cask cleankeys
 ```
 
 ### Option 2: Download Free DMG
-Download the signed DMG directly from **[GitHub Releases](https://github.com/alaska14/cleankeys/releases/latest)**.
+Download the DMG directly from **[GitHub Releases](https://github.com/alaska14/cleankeys/releases/latest)**.
+
+> **First launch:** MonoLab apps are not notarized by Apple yet. If macOS says the app can't be verified, right-click the app → **Open** (or System Settings → Privacy & Security → **Open Anyway**) once.
+
+> **Permissions:** CleanKeys needs **Accessibility** access (System Settings → Privacy & Security → Accessibility) to intercept the media keys. Display brightness keys are handled for the built-in display; with an external monitor as main display, macOS's normal behaviour is used.
 
 ### Option 3: Support Development on Gumroad
 If you love CleanKeys and want to support indie Mac development, you can pay what you want on **[Gumroad (monolabapps.gumroad.com/l/cleankeys)](https://monolabapps.gumroad.com/l/cleankeys)**!
