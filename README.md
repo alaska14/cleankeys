@@ -2,10 +2,9 @@
   <img src="docs/assets/CleanKeys-Cover-Final.png" alt="CleanKeys Banner" width="800">
   <br><br>
   
-  [![Support on Gumroad](https://img.shields.io/badge/Support_on_Gumroad-%242.99+-102039?style=for-the-badge&logo=gumroad&logoColor=white)](https://monolabapps.gumroad.com/l/cleankeys)
-  [![Free Release](https://img.shields.io/badge/Download-Free_DMG-success?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alaska14/cleankeys/releases/latest)
-  [![AlternativeTo](https://img.shields.io/badge/AlternativeTo-Listed-blue?style=for-the-badge)](https://alternativeto.net/software/cleankeys/)
-  [![Homebrew](https://img.shields.io/badge/Homebrew-Available-orange?style=for-the-badge&logo=homebrew&logoColor=white)](#option-2-homebrew-free)
+  [![Get it on Gumroad](https://img.shields.io/badge/Get_it_on_Gumroad-%242.99+-102039?style=for-the-badge&logo=gumroad&logoColor=white)](https://monolabapps.gumroad.com/l/cleankeys)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)](LICENSE)
+  [![AlternativeTo](https://img.shields.io/badge/AlternativeTo-Listed-blue?style=for-the-badge)](https://alternativeto.net/software/cleankeys-by-monolab/)
 </div>
 
 <br>
@@ -44,29 +43,25 @@ Here is our explicit privacy promise:
 
 ## 📦 Installation
 
-### Option 1: Homebrew (Free)
-```bash
-brew tap alaska14/tap
-brew trust alaska14/tap   # Homebrew 7+ requires trusting third-party taps
-brew install --cask cleankeys
-```
-
-### Option 2: Download Free DMG
-Download the DMG directly from **[GitHub Releases](https://github.com/alaska14/cleankeys/releases/latest)**.
+### Get CleanKeys on Gumroad (recommended)
+**[monolabapps.gumroad.com/l/cleankeys](https://monolabapps.gumroad.com/l/cleankeys)** gives you the ready-to-use app as a DMG, plus future updates. Open the DMG and drag `CleanKeys.app` to `/Applications`.
 
 > **First launch:** MonoLab apps are not notarized by Apple yet. If macOS says the app can't be verified, right-click the app → **Open** (or System Settings → Privacy & Security → **Open Anyway**) once.
 
-> **Permissions:** CleanKeys needs **Accessibility** access (System Settings → Privacy & Security → Accessibility) to intercept the media keys. Display brightness keys are handled for the built-in display; with an external monitor as main display, macOS's normal behaviour is used.
+> **Permissions:** CleanKeys needs **Accessibility** access (System Settings → Privacy & Security) to read the media keys. Display brightness keys are handled for the built-in display; with an external monitor as main display, macOS's normal behaviour is used.
 
-### Option 3: Support Development on Gumroad
-If you love CleanKeys and want to support indie Mac development, you can pay what you want on **[Gumroad (monolabapps.gumroad.com/l/cleankeys)](https://monolabapps.gumroad.com/l/cleankeys)**!
-
----
+### Build from source
+CleanKeys is open source (MIT). If you prefer to build it yourself, you need Apple's Command Line Tools (`xcode-select --install`):
+```bash
+git clone https://github.com/alaska14/cleankeys.git
+cd cleankeys
+./build.sh          # creates build/CleanKeys.app
+```
 
 ## 💬 Feedback & Feature Requests
 
 Have a suggestion, found an edge case, or want to report a bug?
 - **[Open an Issue](https://github.com/alaska14/cleankeys/issues)** right here on GitHub.
-- Or reach out directly at **[monolabapps.gumroad.com](https://monolabapps.gumroad.com)**.
+- Bought it on Gumroad? Just reply to your receipt email.
 
 Crafted with care by **MonoLab**.
